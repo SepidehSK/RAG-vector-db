@@ -16,7 +16,7 @@ uv sync
 ```
 
 ## Working On Your Solution
-- For the [pa195_semestral_assignment_2025](https://gitlab.fi.muni.cz/xzovak/pa195_semestral_assignment_2025#) repository in the faculty Gitlab
+- Fork the [pa195_semestral_assignment_2025](https://gitlab.fi.muni.cz/xzovak/pa195_semestral_assignment_2025#) repository in the faculty Gitlab
 - **Your forked repository must be private!**
 - Add [xzovak](https://gitlab.fi.muni.cz/xzovak) user as developer to your repository
 - Create a new feature branch from the master branch
