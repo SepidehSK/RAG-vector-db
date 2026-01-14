@@ -1,0 +1,42 @@
+services:
+  qdrant_node_1:
+    image: qdrant/qdrant:v1.16
+    ports:
+      - "6333:6333" # Public REST API
+      - "6335:6335" # Internal P2P
+    environment:
+      - QDRANT__CLUSTER__ENABLED=true
+    command: ["./qdrant", "--uri", "http://qdrant_node_1:6335"]
+    volumes:
+      - qdrant_data_node1:/qdrant/storage
+    networks:
+      - qdrant-cluster
+
+  qdrant_node_2:
+    image: qdrant/qdrant:v1.16
+    environment:
+      - QDRANT__CLUSTER__ENABLED=true
+    command: ["./qdrant", "--bootstrap", "http://qdrant_node_1:6335", "--uri", "http://qdrant_node_2:6335"]
+    volumes:
+      - qdrant_data_node2:/qdrant/storage
+    networks:
+      - qdrant-cluster
+
+  qdrant_node_3:
+    image: qdrant/qdrant:v1.16
+    environment:
+      - QDRANT__CLUSTER__ENABLED=true
+    command: ["./qdrant", "--bootstrap", "http://qdrant_node_1:6335", "--uri", "http://qdrant_node_3:6335"]
+    volumes:
+      - qdrant_data_node3:/qdrant/storage
+    networks:
+      - qdrant-cluster
+
+networks:
+  qdrant-cluster:
+    driver: bridge
+
+volumes:
+  qdrant_data_node1:
+  qdrant_data_node2:
+  qdrant_data_node3:
