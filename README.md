@@ -41,3 +41,17 @@ uv sync
 - Add [xzovak](https://gitlab.fi.muni.cz/xzovak) user as reviewer
 - Wait for the review and merge the changes to the master branch
 - The assignment is considered passed if the merge request is approved
+
+## Solution Description
+I completed the semestral assignment by implementing a production-ready IR system with Qdrant, achieving recall over 80%.
+Key implementations include:
+- Scalable Cluster: Configured a multi-node Qdrant cluster using Docker Compose for sharding and replication quorum.
+- Task 1: Loaded query and document datasets from Hugging Face, using precomputed embeddings.
+- Task 2: Set up HNSW index (ef_construct=64), collection with dense (384-dim, cosine), sparse (BM25, IDF), and multi-vector (128-dim, MaxSim, no indexing) vectors; added on-disk payload index for groups; disabled quantization.
+- Task 3: Uploaded points with all embeddings and metadata, ensuring full indexing.
+- Task 4: Designed a single Qdrant query with group filtering in prefetches, sparse/dense prefetches (limit=100 each), RRF fusion (k=60), ColBERT reranking (limit=50), and metadata boosting (group_1: 0.05, group_2: 0.1).
+
+Evaluation Results:
+- MAP: ~0.88
+- Average Recall: ~0.87
+- Runtime: ~30 minutes
